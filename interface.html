@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="interface">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <title>Socket Remote Interface</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+		<div class="row">
+			<h1>Socket Remote</h1>
+			<div class="buttonWrap small-12 columns">
+				<button id="btnOne">One</button>
+				<button id="btnTwo">Two</button>
+				<button id="btnThree">Three</button>
+				<button id="btnFour">Four</button>
+				</div>
+			</div>
+		</div>
+		
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="bower_components/hammerjs/hammer.min.js"></script>
+		<script>
+
+		  //var socket = io('172.20.10.6');
+		  var socket = io('http://localhost');
+
+		  // start message
+		  socket.on('start', function(data) {
+		  	console.log(data);
+		  });
+
+		  // send info
+		  var activateButton = function(className) {
+		  	socket.emit('sendActive', {active: className});
+		  }
+
+		  var btn1 = document.getElementById('btnOne')
+		  Hammer(btn1).on("touch", function() {
+			    activateButton('one');
+			});
+		  Hammer(btn1).on("release", function() {
+			    activateButton('off');
+			});
+
+		  var btn2 = document.getElementById('btnTwo')
+		  Hammer(btn2).on("touch", function(){
+		  	activateButton('two');
+		  }, false);
+		  Hammer(btn2).on("release", function(){
+		  	activateButton('off');
+		  }, false);
+
+		  var btn3 = document.getElementById('btnThree')
+		  Hammer(btn3).on("touch", function(){
+		  	activateButton('three');
+		  }, false);
+		  Hammer(btn3).on("release", function(){
+		  	activateButton('off');
+		  }, false);
+
+
+		  var btn4 = document.getElementById('btnFour')
+		  Hammer(btn4).on("touch", function(){
+		  	activateButton('four');
+		  }, false);
+		  Hammer(btn4).on("release", function(){
+		  	activateButton('off');
+		  }, false);
+		</script>
+    </body>
+</html>
